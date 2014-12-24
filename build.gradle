@@ -1,0 +1,83 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+apply plugin: 'jacoco'
+
+def defaultEncoding = 'utf-8'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+group 'com.en_japan.po.common'
+archivesBaseName = 'DataStore'
+version = '0.1.0'
+
+repositories {
+  mavenCentral()
+}
+
+sourceSets {
+  main {
+    java {
+        srcDir 'src/main/java'
+    }
+    resources {
+        srcDir 'src/main/resources'
+    }
+  }
+  test {
+    java {
+        srcDir 'src/test/java'
+    }
+    resources {
+        srcDir 'src/test/resources'
+    }
+  }
+}
+
+dependencies {
+  testCompile 'junit:junit:4.11'
+  compile 'com.amazonaws:aws-java-sdk:1.9.13'
+}
+
+findbugs {
+  ignoreFailures = true
+  toolVersion = "2.0.1"
+  sourceSets = [sourceSets.main]
+  reportsDir = file("$project.buildDir/reports/findbugs")
+  effort = "max"
+//  reportLevel = "high"
+//  visitors = ["FindSqlInjection", "SwitchFallthrough"]
+//  omitVisitors = ["FindNonShortCircuit"]
+//  includeFilter = file("$rootProject.projectDir/config/findbugs/includeFilter.xml")
+//  excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
+}
+
+pmd {
+  ignoreFailures = true
+  sourceSets = [sourceSets.main]
+  reportsDir = file("$project.buildDir/reports/pmd")
+  ruleSets = [
+    "basic",
+    "braces"
+  ]
+}
+
+check << {
+  File outDir = new File('build/reports/pmd/')
+  outDir.mkdirs()
+  ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask',
+    classpath: configurations.pmd.asPath)
+  ant.cpd(minimumTokenCount: '100', format: 'xml', 
+    outputFile: new File(outDir , 'cpd.xml')) {
+    fileset(dir: "src/main/java") {
+      include(name: '**/*.java')
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.2'
+}
+
