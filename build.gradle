@@ -9,8 +9,8 @@ def defaultEncoding = 'utf-8'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-group 'com.en_japan.po.common'
-archivesBaseName = 'DataStore'
+group 'com.mychaelstyle.common'
+archivesBaseName = 'generic-datastore'
 version = '0.1.0'
 
 repositories {
@@ -38,7 +38,11 @@ sourceSets {
 
 dependencies {
   testCompile 'junit:junit:4.11'
+  compile 'ch.qos.logback:logback-classic:1.1.2'
+  compile 'ch.qos.logback:logback-core:1.1.2'
+  compile 'org.json:json:20141113'
   compile 'com.amazonaws:aws-java-sdk:1.9.13'
+  compile 'redis.clients:jedis:2.4.2'
 }
 
 findbugs {
