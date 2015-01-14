@@ -24,7 +24,7 @@ import com.mychaelstyle.common.GenericDatastore.ResultSet;
  * MySQLに結果を出力する
  * @author Masanori Nakashima
  */
-public class MySQL extends GenericDatastore.BaseProvider implements GenericDatastore.Provider{
+public class MySQL extends SQLDatabase {
 
     /**
      * コネクションマップ
@@ -32,13 +32,23 @@ public class MySQL extends GenericDatastore.BaseProvider implements GenericDatas
     private static Map<String,Connection> connMap = new HashMap<String,Connection>();
 
     /**
-     * 
+     * MySQL Provider
      */
     public MySQL() {
     }
 
+    @Override
+    public Connection getConnection() throws ConfigurationException {
+        try {
+            return getConnection(this.host, this.database, this.user, this.password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new ConfigurationException(e);
+        }
+    }
+
     /**
-     * 
+     * get database connection
      * @param host
      * @param databaseName
      * @param user
@@ -64,71 +74,6 @@ public class MySQL extends GenericDatastore.BaseProvider implements GenericDatas
             connMap.put(key, conn);
         }
         return conn;
-    }
-
-    @Override
-    public Provider connect(JSONObject config) throws ConfigurationException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public JSONObject get() throws ConnectionException, ConfigurationException,
-            OperationException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void delete() throws ConnectionException, ConfigurationException,
-            OperationException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void put(JSONObject record) throws ConnectionException,
-            ConfigurationException, OperationException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void update(JSONObject record) throws ConnectionException,
-            ConfigurationException, OperationException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public JSONObject batchGet(JSONArray conditions)
-            throws ConnectionException, ConfigurationException,
-            OperationException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void batchWrite(JSONArray jsonArray) throws ConnectionException,
-            ConfigurationException, OperationException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public ResultSet scan(JSONObject conditions, List<String> fields)
-            throws ConnectionException, ConfigurationException,
-            OperationException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ResultSet query(JSONObject conditions, List<String> fields)
-            throws ConnectionException, ConfigurationException,
-            OperationException {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

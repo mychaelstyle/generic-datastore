@@ -619,14 +619,14 @@ public class GenericDatastore {
          * @param value
          * @return
          */
-        public Provider withKey(final String key, final String value);
+        public Provider withKey(final String key, final Object value);
         /**
          * 問い合わせの副キーとその値を設定する.
          * @param key
          * @param value
          * @return
          */
-        public Provider withSubkey(final String key, final String value);
+        public Provider withSubkey(final String key, final Object value);
         /**
          * 実行時に設定されているテーブル名、主キー、副キー情報からレコードを一意に取得する.
          * @return JSONObject
@@ -763,11 +763,11 @@ public class GenericDatastore {
         /** 主キーフィールド名 */
         protected String keyName = null;
         /** 主キー値 */
-        protected String keyValue = null;
+        protected Object keyValue = null;
         /** 副キーフィールド名 */
         protected String subkeyName = null;
         /** 副キー値 */
-        protected String subkeyValue = null;
+        protected Object subkeyValue = null;
         /* (non-Javadoc)
          * @see com.mychaelstyle.common.GenericDatastore.Provider#withTable(java.lang.String)
          */
@@ -780,7 +780,7 @@ public class GenericDatastore {
          * @see com.mychaelstyle.common.GenericDatastore.Provider#withKey(java.lang.String, java.lang.String)
          */
         @Override
-        public Provider withKey(String key, String value) {
+        public Provider withKey(String key, Object value) {
             this.keyName = key;
             this.keyValue = value;
             return this;
@@ -789,7 +789,7 @@ public class GenericDatastore {
          * @see com.mychaelstyle.common.GenericDatastore.Provider#withSubkey(java.lang.String, java.lang.String)
          */
         @Override
-        public Provider withSubkey(String key, String value) {
+        public Provider withSubkey(String key, Object value) {
             this.subkeyName = key;
             this.subkeyValue = value;
             return this;

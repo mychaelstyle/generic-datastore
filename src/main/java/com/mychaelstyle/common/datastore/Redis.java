@@ -112,13 +112,9 @@ public class Redis extends BaseProvider {
         return host+":"+port;
     }
 
-    private static String createKeyString(String table,String keyValue, String subkeyValue){
-        return table+KEY_DELIMITER+keyValue
-                +((null==subkeyValue || subkeyValue.length()==0) ? "" : KEY_DELIMITER+subkeyValue);
-    }
-
     private String getQueryKey(){
-        return createKeyString(this.tableName,this.keyValue,this.subkeyValue);
+        return new StringBuffer().append(this.tableName).append("-")
+                .append(this.keyValue).append("-").append(this.subkeyValue).toString();
     }
 
     /* (non-Javadoc)
