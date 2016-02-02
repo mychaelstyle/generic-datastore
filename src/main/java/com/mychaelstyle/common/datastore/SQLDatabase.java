@@ -38,6 +38,7 @@ public abstract class SQLDatabase extends GenericDatastore.BaseProvider implemen
     public static final String JSON_ITEM_TABLE_NAME = "table_name";
     
     public static final String JSON_ITEM_DATABASE_HOST = "database_host";
+    public static final String JSON_ITEM_DATABASE_PORT = "database_port";
     public static final String JSON_ITEM_DATABASE_NAME = "database_name";
     public static final String JSON_ITEM_DATABASE_USER = "database_user";
     public static final String JSON_ITEM_DATABASE_PASSWORD = "database_password";
@@ -48,6 +49,7 @@ public abstract class SQLDatabase extends GenericDatastore.BaseProvider implemen
     protected String database = "";
     protected String user = "";
     protected String password = "";
+    protected String port = "";
 
     /**
      * Constructor
@@ -64,6 +66,7 @@ public abstract class SQLDatabase extends GenericDatastore.BaseProvider implemen
     public Provider connect(JSONObject config) throws ConfigurationException {
         this.config = config;
         this.host = config.getString(JSON_ITEM_DATABASE_HOST);
+        this.port = config.getString(JSON_ITEM_DATABASE_PORT);
         this.database = config.getString(JSON_ITEM_DATABASE_NAME);
         this.user = config.getString(JSON_ITEM_DATABASE_USER);
         this.password = config.getString(JSON_ITEM_DATABASE_PASSWORD);

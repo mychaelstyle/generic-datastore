@@ -40,7 +40,7 @@ public class MySQL extends SQLDatabase {
     @Override
     public Connection getConnection() throws ConfigurationException {
         try {
-            return getConnection(this.host, this.database, this.user, this.password);
+            return getConnection(this.host, this.port, this.database, this.user, this.password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new ConfigurationException(e);
@@ -57,16 +57,16 @@ public class MySQL extends SQLDatabase {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static Connection getConnection(String host, String databaseName,
+    public static Connection getConnection(String host, String port, String databaseName,
             String user, String pw) throws ClassNotFoundException, SQLException {
-        String key = host+"-"+databaseName+"-"+user;
+        String key = host+"-"+port+"-"+databaseName+"-"+user;
         synchronized(connMap){
             if(connMap.containsKey(key)){
                 return connMap.get(key);
             }
         }
         String driverName   = "org.gjt.mm.mysql.Driver";
-        String url = "jdbc:mysql://" + host+ "/" + databaseName
+        String url = "jdbc:mysql://" + host+":"+ port +"/" + databaseName
                 + "?useUnicode=true";
         Class.forName(driverName);
         Connection conn = DriverManager.getConnection(url, user, pw);

@@ -11,7 +11,7 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 group 'com.mychaelstyle.common'
 archivesBaseName = 'generic-datastore'
-version = '0.1.0'
+version = '0.2.0'
 
 repositories {
   mavenCentral()
@@ -83,5 +83,14 @@ check << {
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.2'
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      file(System.getenv('HOME') + '/repositories/dev').mkdirs()
+      repository(url: 'file:' + System.getenv('HOME') + '/repositories/dev')
+    }
+  }
 }
 
