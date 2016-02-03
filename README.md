@@ -2,6 +2,7 @@ generic-datastore
 =================================
 
 [ ![Download](https://api.bintray.com/packages/mychaelstyle/maven/generic-datastore/images/download.svg) ](https://bintray.com/mychaelstyle/maven/generic-datastore/_latestVersion)
+[![Build Status](https://travis-ci.org/mychaelstyle/generic-datastore.svg?branch=master)](https://travis-ci.org/mychaelstyle/generic-datastore)
 
 
 RDBMとKVSを統合的に扱えるORMライブラリです。get, update, insert, deleteなど基本的な動作しか行えませんが、MySQL, MariaDB, Redis, AmazonDynamoDB, memcachedなどのデータストアを同じ操作で扱うことができます。
