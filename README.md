@@ -1,6 +1,11 @@
 generic-datastore
 =================================
 
+[ ![Download](https://api.bintray.com/packages/mychaelstyle/maven/generic-datastore/images/download.svg) ](https://bintray.com/mychaelstyle/maven/generic-datastore/_latestVersion)
+
+
+RDBMとKVSを統合的に扱えるORMライブラリです。get, update, insert, deleteなど基本的な動作しか行えませんが、MySQL, MariaDB, Redis, AmazonDynamoDB, memcachedなどのデータストアを同じ操作で扱うことができます。
+
 ## Prerequisites
 
 * Java (> v1.7.0)
@@ -10,13 +15,18 @@ generic-datastore
 
 ### Get started
 
-you can get this library from my Maven2 repository.
-The latest version is 0.1.0 right now.
+You can get this library from bintray maven2 repository.
+
+bintrayのMavenリポジトリで公開しています。
+mavenを利用する場合は (https://dl.bintray.com/mychaelstyle/maven/) をリポジトリに追加してください。
+
+gradleを利用する場合は下記のようにbuild.gradleに追加します。
+
 
 ```
-URL      : http://mychaelstyle.github.io/m2repos/
-Group    : com.mychaelstyle.common
-Artifact : generic-datastore
+URL      : https://dl.bintray.com/mychaelstyle/maven/
+Group    : com.mychaelstyle
+Artifact : generic-datastoer
 ```
 
 #### when using gradle
@@ -25,14 +35,15 @@ add repository and dependency to your build.gradle.
 
 ```
 repositories {
-  mavenCentral()
-  maven {
-    url "http://mychaelstyle.github.io/m2repos/"
+  jcenter()
+    maven {
+      url "https://dl.bintray.com/mychaelstyle/maven/"
+    }
   }
 }
 ...
 dependencies {
-  compile 'com.mychaelstyle.common:generic-datastore:0.1.0'
+  compile 'com.mychaelstyle:generic-datastore:0.2.0'
 }
 ```
 
@@ -41,11 +52,11 @@ dependencies {
 add resolvers and libraryDependencies to your build.sbt.
 
 ```
-resolvers += "Mychaelstyle common lib" at "http://mychaelstyle.github.io/m2repos/"
+resolvers += "Mychaelstyle Lib" at "http://mychaelstyle.github.io/m2repos/"
 
 
 libraryDependencies ++= Seq(
-  "com.mychaelstyle.common" % "generic-datastore" % "0.1.0"
+  "com.mychaelstyle" % "generic-datastore" % "0.2.0"
 )
 ```
 

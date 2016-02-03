@@ -1,6 +1,11 @@
+plugins {
+      id "com.jfrog.bintray" version "1.4"
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+apply plugin: "maven-publish"
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'jacoco'
@@ -9,7 +14,7 @@ def defaultEncoding = 'utf-8'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-group 'com.mychaelstyle.common'
+group 'com.mychaelstyle'
 archivesBaseName = 'generic-datastore'
 version = '0.2.0'
 
@@ -93,4 +98,46 @@ uploadArchives {
     }
   }
 }
+
+publishing {
+  publications {
+    MyPublication(MavenPublication) {
+      from components.java
+      groupId 'com.mychaelstyle'
+      artifactId 'generic-datastore'
+      version '0.2.0'
+    }
+  }
+}
+
+bintray {
+  user = System.getenv('BINTRAY_USER')
+  key = System.getenv('BINTRAY_KEY')
+
+  configurations = ['archives']
+  publications = ['MyPublication']
+
+  dryRun = false
+  publish = true
+
+  pkg {
+    repo = 'maven'
+    name = 'generic-datastore'
+    userOrg = ''
+    desc = 'Data store wrapper for, MySQL, Redis, AWS DynamoDB..., JSON ORM'
+    licenses = ['Apache-2.0']
+    vcsUrl = 'git@github.com:mychaelstyle/generic-datastore.git'
+    websiteUrl = 'https://github.com/mychaelstyle/generic-datastore'
+    issueTrackerUrl = 'https://github.com/mychaelstyle/generic-datastore/issues'
+    
+    publicDownloadNumbers = true
+
+    version {
+      name = '0.2.0'
+      desc = ''
+      vcsTag = '0.2.0'
+    }
+  }
+}
+
 
